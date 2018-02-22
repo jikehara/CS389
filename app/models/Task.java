@@ -1,22 +1,24 @@
 package models;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class Task {
     
     @Id
-    private String id;
+    @GeneratedValue
+    private Integer id;
     
     @play.data.validation.Constraints.Required
     private String contents;
     
-    public String getId() {
+    public Integer getId() {
     	return id;
     }
     
-    public void setId(String id) {
+    public void setId(Integer id) {
     	this.id = id;
     }
     

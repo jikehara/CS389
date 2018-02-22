@@ -11,7 +11,8 @@ libraryDependencies ++= Seq(
   cache,
   javaWs,
   javaJpa.exclude("org.hibernate.javax.persistence", "hibernate-jpa-2.0-api"),
-  "org.hibernate" % "hibernate-entitymanager" % "4.3.8.Final" // replace by your jpa implementation
+  "org.hibernate" % "hibernate-entitymanager" % "4.3.8.Final",
+  "mysql" % "mysql-connector-java" % "5.1.40"
 )
 
 libraryDependencies += "org.webjars" % "jquery" % "1.11.2"
