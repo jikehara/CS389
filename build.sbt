@@ -1,4 +1,4 @@
-name := """play2torial"""
+name := """joeandconnor"""
 
 version := "1.0-SNAPSHOT"
 
