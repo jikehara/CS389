@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Task;
+
 import play.data.Form;
 import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
@@ -19,6 +20,10 @@ public class Application extends Controller {
 
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);
 	
+	/**
+	 * Index is the entry point for this application. It says "hello, world"
+	 * @return Result, an ok(index)
+	 */
 	public static Result index() {
         return ok(index.render("hello, world", Form.form(models.Task.class)));
     }
