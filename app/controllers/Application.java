@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Task;
+
 import play.data.Form;
 
 import play.mvc.Controller;
@@ -23,10 +24,14 @@ import views.html.index;
 public class Application extends Controller {
 
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);
-	
+
 	@PersistenceContext
 	private EntityManager manage;
 	
+	/**
+	 * Index is the entry point for this application. It says "hello, world"
+	 * @return Result, an ok(index)
+	 */
 	public Result index() {
         return ok(index.render("hello, world", Form.form(models.Task.class)));
     }
