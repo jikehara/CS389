@@ -1,4 +1,17 @@
-This is your new Play application
+README
+
 =================================
 
-This file will be packaged with your application, when using `activator dist`.
+The purpose of this project was to familiarize ourselves with the following frameworks and utilities.
+
+Play! Framework
+Spring Dependency Injection
+Hibernate JPA w/ MySQL
+SLF4J Logging
+Unit Testing
+
+=================================
+
+The base template for this project was built off of Nate William's Play tutorial found at https://github.com/YogoGit/play2torial/blob/master/JAVA.md.
+
+To run the app, you must have the application.conf file configured correctly for the database you will have to create, and you also must have the sbt build tool installed.

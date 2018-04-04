@@ -19,7 +19,7 @@ import play.Play;
 @EnableTransactionManagement
 public class DataConfig {
 
-	// this returns a new entity manager
+	// this returns a new entity manager that manages beans
     @Bean
     public EntityManagerFactory entityManagerFactory() {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
