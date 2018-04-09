@@ -1,8 +1,7 @@
 package services;
 
 import models.UserInfo;
-
-import validation.User;
+import userValidation.User;
 
 public interface UserService {
     boolean addUser(User task);
