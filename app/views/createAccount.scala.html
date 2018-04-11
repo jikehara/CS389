@@ -1,0 +1,17 @@
+@(userForm: play.data.Form[userValidation.User])
+@implicitFieldConstructor = @{ helper.FieldConstructor(twitterBootstrapInput.render) }
+
+@import helper.form
+@import helper.inputText
+
+@main("Create Account") {
+    <div class="container">
+        @form(action = routes.CreateAccount.addUser(), 'class -> "well form-horizontal") {
+           @inputText(userForm("username"),'_label -> "Username")
+            <div class="controls">
+                <input type="submit" class="btn btn-primary" value="Create"/>
+            </div>
+        }
+        <a href ="@routes.Login.login()" class="btn btn-success" role="button">Back To Login</a>
+    </div>
+}

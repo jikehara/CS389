@@ -1,4 +1,4 @@
-package validation;
+package userValidation;
 
 import play.data.validation.Constraints.MaxLength;
 import play.data.validation.Constraints.MinLength;

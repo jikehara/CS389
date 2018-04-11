@@ -30,7 +30,7 @@ public class Application extends Controller {
 	
 	/**
 	 * Index is the entry point for this application. It says "hello, world"
-	 * @return Result, an ok(index)
+	 * @return Result, renders the page
 	 */
 	public Result index() {
         return ok(index.render("hello, world", Form.form(models.Task.class)));
