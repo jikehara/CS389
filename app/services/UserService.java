@@ -4,7 +4,7 @@ import models.UserInfo;
 import userValidation.User;
 
 public interface UserService {
-    boolean addUser(User task);
+    boolean addUser(User user);
 
     boolean userExists(String username);
 

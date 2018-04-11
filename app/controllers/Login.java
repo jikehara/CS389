@@ -1,7 +1,6 @@
 package controllers;
 
 import userValidation.User;
-import userValidation.LoginInfo;
 
 import services.UserService;
 
@@ -27,12 +26,12 @@ public class Login extends Controller {
     public Result login() {
         log.info("someone entering the login page");
         session().clear();
-        return ok(login.render(Form.form(LoginInfo.class)));
+        return ok(login.render(Form.form(User.class)));
     }
 
     public Result authenticate() {
         log.info("checking authorization");
-        Form<LoginInfo> form = Form.form(LoginInfo.class).bindFromRequest();
+        Form<User> form = Form.form(User.class).bindFromRequest();
         if (form.hasErrors()) {
             return badRequest(login.render(form));
         }
