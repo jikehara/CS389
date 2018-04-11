@@ -7,9 +7,9 @@
 @main("Create Account") {
     <div class="container">
         @form(action = routes.CreateAccount.addUser(), 'class -> "well form-horizontal") {
-           @inputText(userForm("username"),'_label -> "Username")
+           @inputText(userForm("username"),'_label -> "Player Name")
             <div class="controls">
-                <input type="submit" class="btn btn-primary" value="Create"/>
+                <input type="submit" class="btn btn-primary" value="Create Player"/>
             </div>
         }
         <a href ="@routes.Login.login()" class="btn btn-success" role="button">Back To Login</a>
