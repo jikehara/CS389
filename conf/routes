@@ -6,6 +6,7 @@
 GET     /                           @controllers.Login.login()
 POST    /                           @controllers.Login.authenticate()
 GET     /home                       @controllers.Application.index()
+GET     /game                       @controllers.Application.game()
 
 
 

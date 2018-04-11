@@ -19,6 +19,7 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import views.html.index;
+import views.html.game;
 
 @Named
 public class Application extends Controller {
@@ -34,6 +35,10 @@ public class Application extends Controller {
 	 */
 	public Result index() {
         return ok(index.render("hello, world", Form.form(models.Task.class)));
+    }
+
+    public Result game() {
+        return ok(game.render());
     }
 
 	@Transactional
