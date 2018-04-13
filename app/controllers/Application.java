@@ -34,6 +34,7 @@ public class Application extends Controller {
 	 * @return Result, renders the page
 	 */
 	public Result index() {
+	    logger.debug("session=" + session("username"));
         return ok(index.render("hello, world", Form.form(models.Task.class)));
     }
 
