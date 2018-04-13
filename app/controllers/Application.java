@@ -54,8 +54,7 @@ public class Application extends Controller {
             logger.info("Added a task!");
             return redirect(routes.Application.index());            
         }
-    }
-    
+    }    
 	
     public Result getTasks() {
 		List<Task> tasks = manage.createQuery("FROM Task", Task.class).getResultList();
