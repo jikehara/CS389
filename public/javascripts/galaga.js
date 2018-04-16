@@ -838,6 +838,7 @@ function setEndGame(str) {
         } else {
             alert("Game Over!");
         }
+        // export high score
         lives = PLAYERLIVES;
         level = 1;
         playerScore = 0;
