@@ -14,7 +14,7 @@
   </appender>
 
   <logger name="play" level="INFO" />
-  <logger name="controllers" level="INFO" /> 
+  <logger name="controllers" level="DEBUG" />
 
   <root level="WARN">
     <appender-ref ref="STDOUT" />
