@@ -20,6 +20,7 @@ public class UserPersistenceServiceTest extends AbstractTransactionalJUnit4Sprin
 	@Inject
 	private UserService userService;
 
+	// test being able to add a user
 	@Test
 	public void saveUserTest() {
 		User u = new User();
@@ -50,17 +51,20 @@ public class UserPersistenceServiceTest extends AbstractTransactionalJUnit4Sprin
 		assertFalse(userService.userExists(user.getUsername()));
 	}
 
+	// cannot add a null user
 	@Test
 	public void addNullUser() {
 		assertFalse(userService.addUser(null));
 	}
 
+	// cannot add a user with no username
 	@Test
 	public void notInitializedUser() {
 		User user = new User();
 		assertFalse(userService.addUser(user));
 	}
 
+	// the null user should not exist
 	@Test
 	public void nullUserExists() {
 		assertFalse(userService.userExists(null));
@@ -71,6 +75,7 @@ public class UserPersistenceServiceTest extends AbstractTransactionalJUnit4Sprin
 		assertFalse(userService.userExists("user"));
 	}
 
+	// can add more than one user
 	@Test
 	public void addingMultipleUsers() {
 		User user0 = new User();
