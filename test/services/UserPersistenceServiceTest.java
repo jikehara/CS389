@@ -2,7 +2,7 @@ package services;
 
 import configs.AppConfig;
 import configs.TestDataConfig;
-import userValidation.User;
+import models.User;
 
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;

@@ -1,7 +1,5 @@
 package controllers;
 
-import userValidation.User;
-
 import services.UserService;
 
 import views.html.login;
@@ -9,6 +7,7 @@ import views.html.login;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import models.User;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;

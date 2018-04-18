@@ -1,7 +1,7 @@
 package services;
 
+import models.User;
 import models.UserInfo;
-import userValidation.User;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

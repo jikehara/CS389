@@ -1,4 +1,4 @@
-package userValidation;
+package models;
 
 import javax.persistence.Column;
 
