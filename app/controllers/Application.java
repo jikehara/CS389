@@ -34,19 +34,15 @@ public class Application extends Controller {
 	 * @return Result, renders the page
 	 */
 	public Result index() {
-	    logger.debug("session=" + session("username"));
-	    if (session("username")==null) {
-	    	logger.debug("bad username, page unavailable");
-	    	return redirect(routes.Login.login());
+	    if (!isLoggedIn()) {
+	    	redirect(routes.Login.login());
 	    }
         return ok(index.render("hello, world", Form.form(models.Task.class)));
     }
 
     public Result game() {
-    	logger.debug("session=" + session("username"));
-    	if (session("username")==null) {
-	    	logger.debug("bad username, page unavailable");
-	    	return redirect(routes.Login.login());
+    	if (!isLoggedIn()) {
+	    	redirect(routes.Login.login());
 	    }
         return ok(game.render());
     }
@@ -58,12 +54,12 @@ public class Application extends Controller {
         if (form.hasErrors()) {
         	logger.info("Failed to add a task, bad form.");
             return badRequest(index.render("hello, world", form));
-        } else {
-            models.Task task = form.get();
-            manage.persist(task);
-            logger.info("Added a task!");
-            return redirect(routes.Application.index());            
         }
+        models.Task task = form.get();
+        manage.persist(task);
+        logger.info("Added a task!");
+        return redirect(routes.Application.index());            
+    
     }    
 	
     public Result getTasks() {
@@ -71,4 +67,12 @@ public class Application extends Controller {
         return ok(play.libs.Json.toJson(tasks));
     }    
     
+    private boolean isLoggedIn() {
+	    logger.debug("session=" + session("username"));
+    	if (session("username")==null) {
+	    	logger.debug("bad username, page unavailable");
+	    	return false;
+	    }
+    	return true;
+    }
 }
