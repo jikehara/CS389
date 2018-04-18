@@ -35,10 +35,19 @@ public class Application extends Controller {
 	 */
 	public Result index() {
 	    logger.debug("session=" + session("username"));
+	    if (session("username")==null) {
+	    	logger.debug("bad username, page unavailable");
+	    	return redirect(routes.Login.login());
+	    }
         return ok(index.render("hello, world", Form.form(models.Task.class)));
     }
 
     public Result game() {
+    	logger.debug("session=" + session("username"));
+    	if (session("username")==null) {
+	    	logger.debug("bad username, page unavailable");
+	    	return redirect(routes.Login.login());
+	    }
         return ok(game.render());
     }
 

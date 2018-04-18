@@ -26,6 +26,7 @@ public class Login extends Controller {
     public Result login() {
         log.info("someone entering the login page");
         session().clear();
+        log.debug("session=" + session("username"));
         return ok(login.render(Form.form(User.class)));
     }
 
@@ -40,6 +41,7 @@ public class Login extends Controller {
         if (userService.userExists(username)) {
             log.info("username exists. redirecting to theButton()");
             session("username", username);
+            log.debug("session=" + session("username"));
             return redirect(controllers.routes.Application.index()); // sends user to hello world
         }
         log.info("'{}' does not exist", username);
