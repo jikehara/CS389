@@ -5,7 +5,7 @@ import play.data.validation.Constraints.MinLength;
 import play.data.validation.Constraints.Required;
 
 
-public class User {
+public class UserForm {
     @Required(message = "Username is Required to create an account")
     @MinLength(value = 3)
     @MaxLength(value = 20)

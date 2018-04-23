@@ -1,6 +1,5 @@
 package controllers;
 
-import models.Task;
 import models.HighScores;
 
 import play.data.Form;
@@ -11,7 +10,6 @@ import play.mvc.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Named;
@@ -33,13 +31,13 @@ public class Application extends Controller {
 	
 	/**
 	 * Checks if session has a user, then renders the 'index' page
-	 * @return Result, renders the page
+	 * @return Result, renders the home page
 	 */
 	public Result index() {
 	    if (!isLoggedIn()) {
 	    	redirect(routes.Login.login());
 	    }
-        return ok(index.render("hello, world", Form.form(models.HighScores.class)));
+        return ok(index.render("hello, world", Form.form(models.ScoreForm.class)));
     }
 
 	/**
@@ -51,39 +49,19 @@ public class Application extends Controller {
 	    	redirect(routes.Login.login());
 	    }
         return ok(game.render());
-    }
-
-//	@Transactional
-//	public Result addTask() {
-//		logger.info("Adding a task...");
-//        play.data.Form<models.Task> form = play.data.Form.form(models.Task.class).bindFromRequest();
-//        if (form.hasErrors()) {
-//        	logger.info("Failed to add a task, bad form.");
-//            return badRequest(index.render("hello, world", form));
-//        }
-//        models.Task task = form.get();
-//        manage.persist(task);
-//        logger.info("Added a task!");
-//        return redirect(routes.Application.index());            
-//    
-//    }    
-//	
-//    public Result getTasks() {
-//		List<Task> tasks = manage.createQuery("FROM Task", Task.class).getResultList();
-//        return ok(play.libs.Json.toJson(tasks));
-//    }    
+    }   
     
     @Transactional
     public Result addHighScore() {
     	logger.debug("Adding a high score with session user: "+session("username"));
-    	play.data.Form<models.HighScores> form = play.data.Form.form(models.HighScores.class).bindFromRequest();
+    	play.data.Form<models.ScoreForm> form = play.data.Form.form(models.ScoreForm.class).bindFromRequest();
         if (form.hasErrors()) {
         	logger.debug("Failed to add a high score, form has errors.");
             return badRequest(index.render("hello, world", form));
         }
         HighScores score = new HighScores();        
-        score.setHighScore(444);
-        logger.debug("Score is "+form.get().getHighScore());
+        score.setHighScore(form.get().getScore());
+        logger.debug("Score is "+score.getHighScore());
         score.setUsername(session("username"));
         manage.persist(score);
         logger.debug("Added a High Score!");

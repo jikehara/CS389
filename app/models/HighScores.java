@@ -18,13 +18,13 @@ public class HighScores {
     private String username;
 
     @Column(name = "Score", nullable = true)
-    private long highScore;
+    private Long highScore;
     
     /**
      * Returns the high score
      * @return
      */
-    public long getHighScore() {
+    public Long getHighScore() {
 		return highScore;
 	}
 
@@ -32,7 +32,7 @@ public class HighScores {
      * Sets the high score
      * @param highScore
      */
-	public void setHighScore(long highScore) {
+	public void setHighScore(Long highScore) {
 		this.highScore = highScore;
 	}
 

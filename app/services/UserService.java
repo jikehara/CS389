@@ -1,6 +1,6 @@
 package services;
 
-import models.User;
+import models.UserForm;
 import models.UserInfo;
 
 public interface UserService {
@@ -9,12 +9,12 @@ public interface UserService {
 	 * @param user
 	 * @return false if the user is null or matches an existing user, otherwise true
 	 */
-    boolean addUser(User user);
+    boolean addUser(UserForm user);
 
     /**
      * Checks if the user with this username exists
      * @param username
-     * @return
+     * @return True if matching username, false otherwise
      */
     boolean userExists(String username);
 
