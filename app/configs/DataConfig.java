@@ -19,13 +19,12 @@ import play.Play;
 @EnableTransactionManagement
 public class DataConfig {
 
-	// this returns a new entity manager that manages beans
+	// this returns a new entity manager that manages beans - hibernate
     @Bean
     public EntityManagerFactory entityManagerFactory() {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setShowSql(false);
-        vendorAdapter.setGenerateDdl(true);
-        // vendorAdapter.setDatabase(Database.MYSQL);
+        vendorAdapter.setShowSql(false); // don't show sql statements
+        vendorAdapter.setGenerateDdl(true); // define tables/structure automatically
 
         LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactory.setPackagesToScan("models");
@@ -41,7 +40,7 @@ public class DataConfig {
         return new JpaTransactionManager(entityManagerFactory());
     }
 
-    // This configures the data source
+    // This configures the data source - this manages database 
     // From: https://github.com/YogoGit/theButton/blob/master/app/configs/DataConfig.java
     @Bean
     public DataSource dataSource() {
