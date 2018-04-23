@@ -12,16 +12,17 @@ public interface UserService {
     boolean addUser(User user);
 
     /**
-     * 
+     * Checks if the user with this username exists
      * @param username
      * @return
      */
     boolean userExists(String username);
 
     /**
-     * 
+     * Find a user with this username and return the userinfo, or return null if no matching
+     * username can be found
      * @param username
-     * @return
+     * @return UserInfo (or null if no matching username)
      */
     UserInfo getUserData(String username);
 }
