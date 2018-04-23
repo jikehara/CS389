@@ -841,8 +841,6 @@ function setEndGame(str) {
         // export high score
         lives = PLAYERLIVES;
         level = 1;
-        String scoreText = playerScore.toString();
-        document.cookie = scoreText;
         playerScore = 0;
         badGuys.length = 0;
         bullets.length = 0;

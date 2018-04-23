@@ -21,6 +21,7 @@ import javax.transaction.Transactional;
 import views.html.index;
 import views.html.game;
 
+
 @Named
 public class Application extends Controller {
 
