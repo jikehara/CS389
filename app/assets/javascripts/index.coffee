@@ -1,4 +1,5 @@
 $ ->
-  $.get "/tasks", (data) ->
-    $.each data, (index, task) ->
-      $("#tasks").append $("<li>").text task.contents
+  $.get "/scores", (data) ->
+    $.each data, (index, score) ->
+      $("#scores").append $("<li>").text score.username+ " "+ score.highScore 
+      
