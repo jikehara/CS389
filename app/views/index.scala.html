@@ -1,4 +1,4 @@
-@(message: String, taskForm: Form[Task])
+@(message: String, highScoreForm: Form[HighScores])
 @implicitFieldConstructor = @{ helper.FieldConstructor(twitterBootstrapInput.render) }
     
 @main("Welcome to Play") {
@@ -8,16 +8,16 @@
             <div class="container-fluid">
                 <a id="titleLink" class="brand" href="/">Log Out</a>
                 <a id="titleLink" class="brand" href="/game">Game</a>
-                <a id="titleLink" class="brand" href="/home">Task Page</a>
+                <a id="titleLink" class="brand" href="/home">High Scores</a>
             </div>
         </div>
     </div>
 
     <div class="container">
-        <ul id="tasks"></ul>
+        <ul id="scores"></ul>
 
-        @helper.form(action = routes.Application.addTask(), 'class -> "well form-horizontal") {
-            @helper.inputText(taskForm("contents"), '_label -> "Contents")
+        @helper.form(action = routes.Application.addHighScore(), 'class -> "well form-horizontal") {
+            @helper.inputText(highScoreForm("Score"), '_label -> "Enter High Score")
             <div class="controls">
                 <input type="submit" class="btn btn-primary"/>
             </div>

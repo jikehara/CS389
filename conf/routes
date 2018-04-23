@@ -8,8 +8,6 @@ POST    /                           @controllers.Login.authenticate()
 GET     /home                       @controllers.Application.index()
 GET     /game                       @controllers.Application.game()
 
-
-
 #creating an account
 GET     /createAccount              @controllers.CreateAccount.add()
 POST    /createAccount/User         @controllers.CreateAccount.addUser()
@@ -17,8 +15,10 @@ POST    /createAccount/User         @controllers.CreateAccount.addUser()
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
-GET     /foo                        @controllers.Application.index()
+POST    /score                      @controllers.Application.addHighScore()
+GET		/scores						@controllers.Application.getHighScores()
+# GET     /foo                        @controllers.Application.index()
 
-POST    /task                       @controllers.Application.addTask()
+# POST    /task                       @controllers.Application.addTask()
 
-GET     /tasks                      @controllers.Application.getTasks()
+# GET     /tasks                      @controllers.Application.getTasks()
