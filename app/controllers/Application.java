@@ -82,7 +82,7 @@ public class Application extends Controller {
             return badRequest(index.render("hello, world", form));
         }
         HighScores score = new HighScores();        
-        score.setHighScore(form.get().getHighScore());
+        score.setHighScore(444);
         logger.debug("Score is "+form.get().getHighScore());
         score.setUsername(session("username"));
         manage.persist(score);

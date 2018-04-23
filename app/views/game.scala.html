@@ -1,6 +1,9 @@
 @implicitFieldConstructor = @{ helper.FieldConstructor(twitterBootstrapInput.render) }
 @()
 
+@import helper.form
+@import helper.inputText
+
 <!DOCTYPE html>
 
 <html>
@@ -78,10 +81,14 @@
         </div>
         <div class="container footer" align="center">
             <div class= "controls">
-                <button class="btn btn-primary" type="submit">
-                    Submit score
-                </button>
-                <a id="scoreHere" href="game.scala.html"></a>
+
+                @form(action = routes.Application.addHighScore(), 'class -> "well form-horizontal") {
+                    <div class= "controls">
+                        <button class="btn btn-primary" type="submit">Submit Score</button>
+                    </div>
+                }
+                
+            <a id="scoreHere" href="game.scala.html"></a>
             </div>
             <h1 class="text-info">Key Buttons</h1>
             <p style="font-size : 15px;">
