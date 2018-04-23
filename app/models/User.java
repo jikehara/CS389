@@ -11,10 +11,18 @@ public class User {
     @MaxLength(value = 20)
     private String username;
 
+    /**
+     * Returns the username of the associated User
+     * @return String 'username'
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Sets the username of the associated User to the param string 'username'
+     * @param username
+     */
     public void setUsername(String username) {
         this.username = username;
     }

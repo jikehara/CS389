@@ -7,22 +7,45 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user")
-public class UserInfo {
-
+@Table(name = "high_score")
+public class HighScores {
+	
     @Id
     @GeneratedValue
     private Long id;
     
-    @Column(name = "username", nullable = false, length=20)
+    @Column(name = "User", nullable = false, length=20)
     private String username;
 
+    @Column(name = "Score", nullable = true)
+    private long highScore;
+    
+    /**
+     * Returns the high score
+     * @return
+     */
+    public long getHighScore() {
+		return highScore;
+	}
+
+    /**
+     * Sets the high score
+     * @param highScore
+     */
+	public void setHighScore(long highScore) {
+		this.highScore = highScore;
+	}
+
+	/**
+     * Returns the long value of id
+     * @return
+     */
     public Long getId() {
         return id;
     }
 
     /**
-     * 
+     *  Sets the long value of id
      * @param id
      */
     public void setId(Long id) {
@@ -30,7 +53,7 @@ public class UserInfo {
     }
     
     /**
-     * String getUsername is used to get the private String username
+     * Returns the private String username
      * @return String username
      */
     public String getUsername() {
