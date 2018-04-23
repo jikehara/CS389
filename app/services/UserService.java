@@ -5,7 +5,8 @@ import models.UserInfo;
 
 public interface UserService {
 	/**
-	 * Checks a user to see if it is null or matches the username of a different user
+	 * Checks a user to see if it is null or matches the username of a different user.
+	 * Will persist a new user to the entity manager
 	 * @param user
 	 * @return false if the user is null or matches an existing user, otherwise true
 	 */
