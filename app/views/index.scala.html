@@ -17,7 +17,7 @@
         <ul id="scores"></ul>
 
         @helper.form(action = routes.Application.addHighScore(), 'class -> "well form-horizontal") {
-            @helper.inputText(highScoreForm("Score"), '_label -> "Enter High Score")
+            @helper.inputText(highScoreForm("highScore"), '_label -> "Enter High Score")
             <div class="controls">
                 <input type="submit" class="btn btn-primary"/>
             </div>
