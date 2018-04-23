@@ -2,7 +2,7 @@ package services;
 
 import configs.AppConfig;
 import configs.TestDataConfig;
-import models.User;
+import models.UserForm;
 
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
@@ -23,7 +23,7 @@ public class UserPersistenceServiceTest extends AbstractTransactionalJUnit4Sprin
 	// test being able to add a user
 	@Test
 	public void saveUserTest() {
-		User u = new User();
+		UserForm u = new UserForm();
 		u.setUsername("test");
 		userService.addUser(u);
 		assertTrue(userService.userExists(u.getUsername()));
@@ -33,7 +33,7 @@ public class UserPersistenceServiceTest extends AbstractTransactionalJUnit4Sprin
 	// added
 	@Test(expected = javax.persistence.PersistenceException.class)
 	public void addUsernameLong() {
-		User user = new User();
+		UserForm user = new UserForm();
 		user.setUsername("user1WhichIsLongerThan20Characters");
 		assertTrue(user.getUsername().length() > 20);
 		userService.addUser(user);
@@ -44,7 +44,7 @@ public class UserPersistenceServiceTest extends AbstractTransactionalJUnit4Sprin
 	// added
 	@Test(expected = java.lang.AssertionError.class)
 	public void addUsernameShort() {
-		User user = new User();
+		UserForm user = new UserForm();
 		user.setUsername("u2");
 		assertTrue(user.getUsername().length() < 3);
 		userService.addUser(user);
@@ -60,7 +60,7 @@ public class UserPersistenceServiceTest extends AbstractTransactionalJUnit4Sprin
 	// cannot add a user with no username
 	@Test
 	public void notInitializedUser() {
-		User user = new User();
+		UserForm user = new UserForm();
 		assertFalse(userService.addUser(user));
 	}
 
@@ -78,12 +78,12 @@ public class UserPersistenceServiceTest extends AbstractTransactionalJUnit4Sprin
 	// can add more than one user
 	@Test
 	public void addingMultipleUsers() {
-		User user0 = new User();
+		UserForm user0 = new UserForm();
 		user0.setUsername("user0");
 		userService.addUser(user0);
 		assertTrue(userService.userExists(user0.getUsername()));
 
-		User user1 = new User();
+		UserForm user1 = new UserForm();
 		user1.setUsername("user1");
 		userService.addUser(user1);
 		assertTrue(userService.userExists(user1.getUsername()));
@@ -101,7 +101,7 @@ public class UserPersistenceServiceTest extends AbstractTransactionalJUnit4Sprin
 
 	@Test
 	public void getUserDataExists() {
-		User user = new User();
+		UserForm user = new UserForm();
 		user.setUsername("user0");
 		userService.addUser(user);
 		assertNotNull(userService.getUserData(user.getUsername()));

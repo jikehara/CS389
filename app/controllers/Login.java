@@ -7,7 +7,7 @@ import views.html.login;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import models.User;
+import models.UserForm;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -25,12 +25,12 @@ public class Login extends Controller {
     public Result login() {
         log.info("someone entering the login page");
         session().clear();
-        return ok(login.render(Form.form(User.class)));
+        return ok(login.render(Form.form(UserForm.class)));
     }
 
     public Result authenticate() {
         log.info("checking authorization");
-        Form<User> form = Form.form(User.class).bindFromRequest();
+        Form<UserForm> form = Form.form(UserForm.class).bindFromRequest();
         if (form.hasErrors()) {
             return badRequest(login.render(form));
         }

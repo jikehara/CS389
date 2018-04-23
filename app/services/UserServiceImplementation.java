@@ -1,6 +1,6 @@
 package services;
 
-import models.User;
+import models.UserForm;
 import models.UserInfo;
 
 import org.slf4j.Logger;
@@ -22,7 +22,7 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     @Transactional
-    public boolean addUser(User user) {
+    public boolean addUser(UserForm user) {
         if (user != null && !userExists(user.getUsername()) && user.getUsername() != null) {
             UserInfo newUser = new UserInfo();
             newUser.setUsername(user.getUsername());

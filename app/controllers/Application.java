@@ -37,7 +37,7 @@ public class Application extends Controller {
 	    if (!isLoggedIn()) {
 	    	redirect(routes.Login.login());
 	    }
-        return ok(index.render("hello, world", Form.form(models.HighScores.class)));
+        return ok(index.render("hello, world", Form.form(models.ScoreForm.class)));
     }
 
 	/**
@@ -54,14 +54,14 @@ public class Application extends Controller {
     @Transactional
     public Result addHighScore() {
     	logger.debug("Adding a high score with session user: "+session("username"));
-    	play.data.Form<models.HighScores> form = play.data.Form.form(models.HighScores.class).bindFromRequest();
+    	play.data.Form<models.ScoreForm> form = play.data.Form.form(models.ScoreForm.class).bindFromRequest();
         if (form.hasErrors()) {
         	logger.debug("Failed to add a high score, form has errors.");
             return badRequest(index.render("hello, world", form));
         }
         HighScores score = new HighScores();        
-        score.setHighScore(444);
-        logger.debug("Score is "+form.get().getHighScore());
+        score.setHighScore(form.get().getScore());
+        logger.debug("Score is "+score.getHighScore());
         score.setUsername(session("username"));
         manage.persist(score);
         logger.debug("Added a High Score!");

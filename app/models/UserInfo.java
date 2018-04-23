@@ -22,7 +22,7 @@ public class UserInfo {
     }
 
     /**
-     * 
+     * Sets the primary key id to the param id
      * @param id
      */
     public void setId(Long id) {
@@ -30,7 +30,7 @@ public class UserInfo {
     }
     
     /**
-     * String getUsername is used to get the private String username
+     * Gets the username from the object
      * @return String username
      */
     public String getUsername() {
@@ -38,8 +38,7 @@ public class UserInfo {
     }
 
     /**
-     * void setUsername takes a string argument and sets the private variable
-     * "username" to the value of the passed in string
+     * Sets username to the param username
      * @param String username
      */
     public void setUsername(String username) {
