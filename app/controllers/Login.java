@@ -37,7 +37,7 @@ public class Login extends Controller {
         String username = form.get().getUsername();
         log.info("checking if '{}' exists", username);
         if (userService.userExists(username)) {
-            log.info("username exists. redirecting to theButton()");
+            log.info("username exists. redirecting");
             session("username", username);
             log.debug("session=" + session("username"));
             return redirect(controllers.routes.Application.index()); // sends user to hello world
