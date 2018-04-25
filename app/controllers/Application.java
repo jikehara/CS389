@@ -2,6 +2,7 @@ package controllers;
 
 import models.HighScores;
 
+import models.ScoreForm;
 import play.data.Form;
 
 import play.mvc.Controller;
@@ -56,7 +57,7 @@ public class Application extends Controller {
     	logger.debug("Adding a high score with session user: "+session("username"));
     	Form<models.ScoreForm> form = Form.form(models.ScoreForm.class).bindFromRequest();
         if (form.hasErrors()) {
-        	logger.debug("Failed to add a high score, form has errors.");
+        	logger.debug("Failed to add a high score, form has errors. expected a number, we got");
             return badRequest(index.render("hello, world", form));
         }
         HighScores score = new HighScores();        

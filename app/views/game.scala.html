@@ -21,6 +21,7 @@
 	        </div>
 	    </div>
 
+
         <link href="@routes.Assets.at("stylesheets/bootstrap.css")" type="spreadsheet">
         <link href="@routes.Assets.at("stylesheets/bootstrap-responsive.css")" type="spreadsheet">
         <link href='http://fonts.googleapis.com/css?family=Iceland' rel='stylesheet' type='text/css'>
@@ -30,6 +31,9 @@
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("javascripts/galaga.js")">
 
+        <script type="text/javascript">
+         document.getElementById("scoreReplace").value = getHighScore();
+        </script>
 
         <style>
                 .main{
@@ -85,13 +89,15 @@
         <div class="container footer" align="center">
             <div class= "controls">
 
-                <form action="@routes.Application.addHighScore()" onsubmit="return getHighScore()">
-                    <div class= "controls">
-                        <button class="btn btn-primary" type="submit">Submit Score</button>
-                    </div>
-                </form>
+                <form id="myForm" action="@routes.Application.addHighScore()" method="post">
+                    <input type='hidden' id='scoreSub' name='score' value='' href="game.scala.html">
+                    <button class="btn btn-primary" type="submit">Submit Score</button>
 
+
+                </form>
+                <a id="scoreSub" href="game.scala.html"></a>
             <a id="scoreHere" href="game.scala.html"></a>
+
             </div>
             <h1 class="text-info">Key Buttons</h1>
             <p style="font-size : 15px;">
@@ -188,6 +194,15 @@
 
         <script type="text/javascript" src="@routes.Assets.at("javascripts/boss_weapon.js")"></script>
         <script type="text/javascript" src="@routes.Assets.at("javascripts/galaga.js")"></script>
+
+
+        <script>
+                    var numScore = getHighScore();
+                    var score2 = document.getElementById("scoreSub");
+                    score2.value = numScore;
+
+
+        </script>
 
         <script>
         var score = playerScore;
