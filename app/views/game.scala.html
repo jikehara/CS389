@@ -3,6 +3,8 @@
 
 @import helper.form
 @import helper.inputText
+@import helper.input
+
 
 <!DOCTYPE html>
 
@@ -19,6 +21,7 @@
 	        </div>
 	    </div>
 
+
         <link href="@routes.Assets.at("stylesheets/bootstrap.css")" type="spreadsheet">
         <link href="@routes.Assets.at("stylesheets/bootstrap-responsive.css")" type="spreadsheet">
         <link href='http://fonts.googleapis.com/css?family=Iceland' rel='stylesheet' type='text/css'>
@@ -26,7 +29,11 @@
         <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("lib/bootstrap/css/bootstrap.min.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("javascripts/galaga.js")">
 
+        <script type="text/javascript">
+         document.getElementById("scoreReplace").value = getHighScore();
+        </script>
 
         <style>
                 .main{
@@ -36,7 +43,6 @@
                     background-size: cover;
                     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
                 }
-
                 .main_text{
                     font-variant: normal;
                     font-style: normal;
@@ -45,15 +51,12 @@
                     padding : 10px 0 10px;
                     font-family: 'Iceland', cursive;
                 }
-
                 .main_title{
                     font-size : 70px;
                 }
-
                 .main_description{
                     font-size : 20px;
                 }
-
                 .footer{
                     font-family: 'Iceland', cursive;
                 }
@@ -82,14 +85,15 @@
         <div class="container footer" align="center">
             <div class= "controls">
 
-                @form(action = routes.Application.addHighScore(), 'class -> "well form-horizontal") {
-                    <input type="hidden" value="443" name="score" />
-                    <div class= "controls">
-                        <button class="btn btn-primary" type="submit">Submit Score</button>
-                    </div>
-                }
+                <form id="myForm" action="@routes.Application.addHighScore()" method="post">
+                    <input type='hidden' id='scoreSub' name='score' value='' href="game.scala.html">
+                    <button class="btn btn-primary" type="submit">Submit Score</button>
 
+
+                </form>
+                <a id="scoreSub" href="game.scala.html"></a>
             <a id="scoreHere" href="game.scala.html"></a>
+
             </div>
             <h1 class="text-info">Key Buttons</h1>
             <p style="font-size : 15px;">
@@ -100,6 +104,7 @@
                 "<b style="color:red;">c</b>" : Shield <br>
                 "<b style="color:red;">shift</b>" + "<b style="color:red;">arrow</b>" : Homing a.k.a 'torpedo number 1' of North Korea. <br>
             </p>
+            </div>
         </div>
         <div id="img_source" style="display:none;">
             <img id="bad1" src="@routes.Assets.at("images/bad2.png")">
@@ -186,15 +191,22 @@
         <script type="text/javascript" src="@routes.Assets.at("javascripts/boss_weapon.js")"></script>
         <script type="text/javascript" src="@routes.Assets.at("javascripts/galaga.js")"></script>
 
+
+        <script>
+                    var numScore = getHighScore();
+                    var score2 = document.getElementById("scoreSub");
+                    score2.value = numScore;
+        </script>
+
         <script>
         var score = playerScore;
-
         window.onload = setInterval(function() {
             //when the document is finished loading, replace everything
             //between the <a ...> </a> tags with the value of splitText
             score = playerScore;
             document.getElementById("scoreHere").innerHTML=score;
         },50);
+        document.getElementById("score").value = score;
         </script>
     </body>
 </html>

@@ -819,6 +819,9 @@ function checkLevelFinished() {
     }
 }
 
+function getHighScore(){
+    return playerScore;
+}
 /**
  * player has been killed or got a game over
  * optional param str of reason WHY the game ended
