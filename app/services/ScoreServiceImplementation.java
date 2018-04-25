@@ -29,7 +29,7 @@ public class ScoreServiceImplementation implements ScoreService {
 	}
 
 	@Override
-	public boolean addScore(UserForm user, ScoreForm score) {
+	public boolean addScore(UserInfo user, ScoreForm score) {
 		if (user != null 
 				&& !scoreExists(user.getUsername()) 
 				&& user.getUsername() != null

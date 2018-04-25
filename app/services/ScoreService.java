@@ -2,7 +2,7 @@ package services;
 
 import models.HighScores;
 import models.ScoreForm;
-import models.UserForm;
+import models.UserInfo;
 
 public interface ScoreService {
     /**
@@ -13,13 +13,12 @@ public interface ScoreService {
     boolean scoreExists(String username);
 
     /**
-     * If user exists and score is greater than the previous score for this user, then
-     * update the user's score. 
+     * Check if a score can be added based on username and score
      * @param user
      * @param score
      * @return True if the score is a new high score and user is valid, false otherwise
      */
-    boolean addScore(UserForm user, ScoreForm score);
+    boolean addScore(UserInfo user, ScoreForm score);
     
     /**
      * Find the score associated with the param username, or null if no match to the username
