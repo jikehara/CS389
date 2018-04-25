@@ -54,7 +54,7 @@ public class Application extends Controller {
     @Transactional
     public Result addHighScore() {
     	logger.debug("Adding a high score with session user: "+session("username"));
-    	play.data.Form<models.ScoreForm> form = play.data.Form.form(models.ScoreForm.class).bindFromRequest();
+    	Form<models.ScoreForm> form = Form.form(models.ScoreForm.class).bindFromRequest();
         if (form.hasErrors()) {
         	logger.debug("Failed to add a high score, form has errors.");
             return badRequest(index.render("hello, world", form));

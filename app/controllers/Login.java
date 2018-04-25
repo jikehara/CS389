@@ -23,27 +23,27 @@ public class Login extends Controller {
     private UserService userService;
 
     public Result login() {
-        log.info("someone entering the login page");
+        log.debug("someone entering the login page");
         session().clear();
         return ok(login.render(Form.form(UserForm.class)));
     }
 
     public Result authenticate() {
-        log.info("checking authorization");
+        log.debug("checking authorization");
         Form<UserForm> form = Form.form(UserForm.class).bindFromRequest();
         if (form.hasErrors()) {
             return badRequest(login.render(form));
         }
         String username = form.get().getUsername();
-        log.info("checking if '{}' exists", username);
-        if (userService.userExists(username)) {
-            log.info("username exists. redirecting");
-            session("username", username);
-            log.debug("session=" + session("username"));
-            return redirect(controllers.routes.Application.index()); // sends user to hello world
-        }
-        log.info("'{}' does not exist", username);
-        form.reject("username", "That username doesn't exist");
-        return badRequest(login.render(form));
+        log.debug("checking if '{}' exists", username);
+        if (!(userService.userExists(username))) {
+        	log.info("'{}' does not exist", username);
+            form.reject("username", "That username doesn't exist");
+            return badRequest(login.render(form));
+        }        
+        log.info("username exists. redirecting");
+        session("username", username);
+        log.debug("session=" + session("username"));
+        return redirect(controllers.routes.Application.index()); // sends user to hello world
     }
 }
