@@ -70,7 +70,7 @@ public class Application extends Controller {
     }
     
     public Result getHighScores() {
-		List<HighScores> scores = manage.createQuery("FROM HighScores", HighScores.class).getResultList();
+		List<HighScores> scores = manage.createQuery("FROM HighScores ORDER BY Score DESC", HighScores.class).getResultList();
         return ok(play.libs.Json.toJson(scores));
     }  
     
