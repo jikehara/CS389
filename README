@@ -4,7 +4,7 @@ README
 
 The purpose of this project was to familiarize ourselves with the following frameworks and utilities.
 
-Play! Framework
+Play! 2.x Framework
 Spring Dependency Injection
 Hibernate JPA w/ MySQL
 SLF4J Logging
@@ -14,4 +14,9 @@ Unit Testing
 
 The base template for this project was built off of Nate William's Play tutorial found at https://github.com/YogoGit/play2torial/blob/master/JAVA.md.
 
+Some of the form creation and validation code taken from lwelna's TheButton found at https://github.com/YogoGit/theButton
+
+The HTML5 Space Game adapted from MutMatts's PEWPEW found at https://github.com/Mutmatt/Pew-Pew
+
 To run the app, you must have the application.conf file configured correctly for the database you will have to create, and you also must have the sbt build tool installed.
+To run unit tests use the Scala Build Tool 'sbt test' command

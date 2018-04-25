@@ -50,14 +50,22 @@ public class Application extends Controller {
 	    	redirect(routes.Login.login());
 	    }
         return ok(game.render());
-    }   
-    
-    @Transactional
+    }
+
+	/**
+	 * Takes the submitted form data and creates a high score using a user session
+	 * and either succeeds or reloads the form with error
+	 * @return either a 200 or 400 code with a redirect 
+	 */
+	@Transactional
     public Result addHighScore() {
     	logger.debug("Adding a high score with session user: "+session("username"));
     	Form<models.ScoreForm> form = Form.form(models.ScoreForm.class).bindFromRequest();
         if (form.hasErrors()) {
-        	logger.debug("Failed to add a high score, form has errors. expected a number, we got");
+			logger.debug("Failed to add a high score, form has errors. No value was passed in form");
+        	if(form.get().getScore()==null) {
+				logger.debug("No value was passed in form");
+			}
             return badRequest(index.render("hello, world", form));
         }
         HighScores score = new HighScores();        
@@ -68,8 +76,12 @@ public class Application extends Controller {
         logger.debug("Added a High Score!");
         return redirect(routes.Application.index()); 
     }
-    
-    public Result getHighScores() {
+
+	/**
+	 * fetches stored scores from database and passes them as JSON
+	 * @return a 200 ok code and passes the JSON scores
+	 */
+	public Result getHighScores() {
 		List<HighScores> scores = manage.createQuery("FROM HighScores ORDER BY Score DESC", HighScores.class).getResultList();
         return ok(play.libs.Json.toJson(scores));
     }  

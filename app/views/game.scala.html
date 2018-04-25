@@ -1,3 +1,5 @@
+<--! Space game adapted from https://github.com/Mutmatt/Pew-Pew -->
+
 @implicitFieldConstructor = @{ helper.FieldConstructor(twitterBootstrapInput.render) }
 @()
 
@@ -195,6 +197,7 @@
             score2.value = numScore;
         </script>
 
+        <--! this function fetches the score from the space game js and updates it in the form submission value-->
         <script>
         var score = playerScore;
         window.onload = setInterval(function() {
