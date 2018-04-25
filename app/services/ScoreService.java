@@ -13,12 +13,12 @@ public interface ScoreService {
     boolean scoreExists(String username);
 
     /**
-     * Check if a score can be added based on username and score
+     * Check if a score can be added if it is a new user or a duplicate user with a new high score
      * @param user
      * @param score
      * @return True if the score is a new high score and user is valid, false otherwise
      */
-    boolean addScore(UserInfo user, ScoreForm score);
+    boolean canAddScore(UserInfo user, Long score);
     
     /**
      * Find the score associated with the param username, or null if no match to the username
@@ -26,5 +26,5 @@ public interface ScoreService {
      * @param username
      * @return HighScore (or null if no matching username)
      */
-    HighScores getHighScore(String username);
+    HighScores getSingleUserHighScore(String username);
 }

@@ -22,7 +22,7 @@ public class HighScores {
     
     /**
      * Returns the high score
-     * @return
+     * @return Long highScore
      */
     public Long getHighScore() {
 		return highScore;
@@ -38,7 +38,7 @@ public class HighScores {
 
 	/**
      * Returns the long value of id
-     * @return
+     * @return Long id
      */
     public Long getId() {
         return id;

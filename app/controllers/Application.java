@@ -1,8 +1,11 @@
 package controllers;
 
 import models.HighScores;
-
 import models.ScoreForm;
+
+import services.ScoreServiceImplementation;
+import services.UserServiceImplementation;
+
 import play.data.Form;
 
 import play.mvc.Controller;
@@ -26,6 +29,9 @@ import views.html.game;
 public class Application extends Controller {
 
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);
+	
+	private UserServiceImplementation userService;
+	private ScoreServiceImplementation scoreService;
 
 	@PersistenceContext
 	private EntityManager manage;
@@ -69,9 +75,21 @@ public class Application extends Controller {
             return badRequest(index.render("hello, world", form));
         }
         HighScores score = new HighScores();        
-        score.setHighScore(form.get().getScore());
-        logger.debug("Score is "+score.getHighScore());
+        score.setHighScore(form.get().getScore());        
         score.setUsername(session("username"));
+        logger.debug("Score is "+score.getHighScore()+" for user "+score.getUsername());
+        
+        //validate score based on user and score
+        List<HighScores> scores = manage.createQuery("FROM HighScores ORDER BY Score DESC", HighScores.class).getResultList();
+        for (int i = 0; i < scores.size(); i++) {
+        	if (score.getUsername().equals(scores.get(i).getUsername())) {
+        		if (score.getHighScore() < scores.get(i).getHighScore()) {
+        			logger.info("Score was not high enough to be this user's new high score ");
+                    return badRequest(index.render("hello, world", form));
+        		}
+        	}
+        }
+        manage.createQuery("DELETE FROM HighScores WHERE User = "+ score.getUsername());
         manage.persist(score);
         logger.debug("Added a High Score!");
         return redirect(routes.Application.index()); 
@@ -87,7 +105,6 @@ public class Application extends Controller {
     }  
     
     private boolean isLoggedIn() {
-	    logger.debug("session=" + session("username"));
     	if (session("username")==null) {
 	    	logger.debug("bad username, page unavailable");
 	    	return false;

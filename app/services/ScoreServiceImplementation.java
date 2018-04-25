@@ -24,28 +24,24 @@ public class ScoreServiceImplementation implements ScoreService {
 
 	@Override
 	public boolean scoreExists(String username) {
-		HighScores hs = getHighScore(username);
+		HighScores hs = getSingleUserHighScore(username);
         return (hs != null);
 	}
 
 	@Override
-	public boolean addScore(UserInfo user, ScoreForm score) {
+	public boolean canAddScore(UserInfo user, Long score) {
 		if (user != null 
 				&& !scoreExists(user.getUsername()) 
 				&& user.getUsername() != null
-				&& score.getScore() > getHighScore(user.getUsername()).getHighScore()
+				&& score > getSingleUserHighScore(user.getUsername()).getHighScore()
 			) {
-            HighScores newScore = new HighScores();
-            newScore.setUsername(user.getUsername());
-            newScore.setHighScore(score.getScore());
-            em.persist(newScore);
             return true;
         }
         return false;
 	}
 
 	@Override
-    public HighScores getHighScore(String username) {
+    public HighScores getSingleUserHighScore(String username) {
         List<HighScores> hs = em.createQuery("SELECT a FROM HighScores a WHERE a.username = :username", HighScores.class)
                               .setParameter("username", username)
                               .getResultList();
