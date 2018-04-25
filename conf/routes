@@ -16,9 +16,4 @@ POST    /createAccount/User         @controllers.CreateAccount.addUser()
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 POST    /score                      @controllers.Application.addHighScore()
-GET		/score						@controllers.Application.getHighScores()
-# GET     /foo                        @controllers.Application.index()
-
-# POST    /task                       @controllers.Application.addTask()
-
-# GET     /tasks                      @controllers.Application.getTasks()
+GET		/scores						@controllers.Application.getHighScores()
