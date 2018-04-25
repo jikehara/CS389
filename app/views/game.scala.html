@@ -21,7 +21,6 @@
 	        </div>
 	    </div>
 
-
         <link href="@routes.Assets.at("stylesheets/bootstrap.css")" type="spreadsheet">
         <link href="@routes.Assets.at("stylesheets/bootstrap-responsive.css")" type="spreadsheet">
         <link href='http://fonts.googleapis.com/css?family=Iceland' rel='stylesheet' type='text/css'>
@@ -86,13 +85,12 @@
             <div class= "controls">
 
                 <form id="myForm" action="@routes.Application.addHighScore()" method="post">
-                    <input type='hidden' id='scoreSub' name='score' value='' href="game.scala.html">
+                    <input type='hidden' id='score' name='score' />
                     <button class="btn btn-primary" type="submit">Submit Score</button>
 
-
                 </form>
-                <a id="scoreSub" href="game.scala.html"></a>
-            <a id="scoreHere" href="game.scala.html"></a>
+                <p id = scoreSub></p>
+            <p id="scoreHere" ></p>
 
             </div>
             <h1 class="text-info">Key Buttons</h1>
@@ -102,9 +100,8 @@
                 "<b style="color:red;">z</b>" : Bomb <br>
                 "<b style="color:red;">x</b>" : Shotgun <br>
                 "<b style="color:red;">c</b>" : Shield <br>
-                "<b style="color:red;">shift</b>" + "<b style="color:red;">arrow</b>" : Homing a.k.a 'torpedo number 1' of North Korea. <br>
+                "<b style="color:red;">shift</b>" + "<b style="color:red;">arrow</b>" : Homing  <br>
             </p>
-            </div>
         </div>
         <div id="img_source" style="display:none;">
             <img id="bad1" src="@routes.Assets.at("images/bad2.png")">
@@ -193,9 +190,9 @@
 
 
         <script>
-                    var numScore = getHighScore();
-                    var score2 = document.getElementById("scoreSub");
-                    score2.value = numScore;
+            var numScore = getHighScore();
+            var score2 = document.getElementById("scoreSub");
+            score2.value = numScore;
         </script>
 
         <script>
@@ -205,8 +202,9 @@
             //between the <a ...> </a> tags with the value of splitText
             score = playerScore;
             document.getElementById("scoreHere").innerHTML=score;
+            document.getElementById("score").value = score;
         },50);
-        document.getElementById("score").value = score;
+        
         </script>
     </body>
 </html>
