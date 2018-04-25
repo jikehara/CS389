@@ -3,6 +3,8 @@
 
 @import helper.form
 @import helper.inputText
+@import helper.input
+
 
 <!DOCTYPE html>
 
@@ -26,6 +28,7 @@
         <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("lib/bootstrap/css/bootstrap.min.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("javascripts/galaga.js")">
 
 
         <style>
@@ -81,13 +84,12 @@
         </div>
         <div class="container footer" align="center">
             <div class= "controls">
-                
-                @form(action = routes.Application.addHighScore(), 'class -> "well form-horizontal") {
-                    <input type="hidden" value="444" name="score" />
+
+                <form action="@routes.Application.addHighScore()" onsubmit="return getHighScore()">
                     <div class= "controls">
                         <button class="btn btn-primary" type="submit">Submit Score</button>
                     </div>
-                }
+                </form>
 
             <a id="scoreHere" href="game.scala.html"></a>
             </div>
@@ -100,6 +102,7 @@
                 "<b style="color:red;">c</b>" : Shield <br>
                 "<b style="color:red;">shift</b>" + "<b style="color:red;">arrow</b>" : Homing a.k.a 'torpedo number 1' of North Korea. <br>
             </p>
+            </div>
         </div>
         <div id="img_source" style="display:none;">
             <img id="bad1" src="@routes.Assets.at("images/bad2.png")">
@@ -195,6 +198,8 @@
             score = playerScore;
             document.getElementById("scoreHere").innerHTML=score;
         },50);
+
+        document.getElementById("score").value = score;
         </script>
     </body>
 </html>
