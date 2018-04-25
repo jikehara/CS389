@@ -72,17 +72,25 @@ public class Application extends Controller {
         logger.debug("Score is "+score.getHighScore()+" for user "+score.getUsername());
         
         //validate score based on user and score
-        List<HighScores> scores = manage.createQuery("FROM HighScores ORDER BY Score DESC", HighScores.class).getResultList();
-        for (int i = 0; i < scores.size(); i++) {
-        	if (score.getUsername().equals(scores.get(i).getUsername())) {
-        		if (score.getHighScore() < scores.get(i).getHighScore()) {
-        			logger.info("Score was not high enough to be this user's new high score ");
-                    return badRequest(index.render("hello, world", form));
-        		}
-        	}
+        List<HighScores> scores = manage.createQuery("FROM HighScores h WHERE h.username = :name ORDER BY h.highScore DESC", HighScores.class)
+        		.setParameter("name", score.getUsername())
+        		.getResultList();
+        HighScores highestScoreForUser = null;
+        for (HighScores h : scores) {
+        	if (score.getHighScore() < h.getHighScore()) {
+        		logger.info("Score was not high enough to be this user's new high score ");
+                return badRequest(index.render("hello, world", form));
+    		}
+    		highestScoreForUser = h;
         }
-        manage.createQuery("DELETE FROM HighScores WHERE User = "+ score.getUsername());
-        manage.persist(score);
+        if (highestScoreForUser == null) {
+        	highestScoreForUser = new HighScores();
+        	highestScoreForUser.setUsername(score.getUsername());
+        }
+        highestScoreForUser.setHighScore(score.getHighScore());
+        
+        manage.persist(highestScoreForUser);
+        //manage.remove(highestScoreForUser);
         logger.debug("Added a High Score!");
         return redirect(routes.Application.index()); 
     }
