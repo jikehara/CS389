@@ -34,7 +34,7 @@ public class Login extends Controller {
         if (form.hasErrors()) {
             return badRequest(login.render(form));
         }
-        String username = form.get().getUsername();
+        String username = form.get().getUsername().toUpperCase();
         log.debug("checking if '{}' exists", username);
         if (!(userService.userExists(username))) {
         	log.info("'{}' does not exist", username);

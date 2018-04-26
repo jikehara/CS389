@@ -20,3 +20,11 @@ The HTML5 Space Game adapted from MutMatts's PEWPEW found at https://github.com/
 
 To run the app, you must have the application.conf file configured correctly for the database you will have to create, and you also must have the sbt build tool installed.
 To run unit tests use the Scala Build Tool 'sbt test' command
+
+We used a lot of code that came from other people. Here is some of it:
+
+Help with HTML tables in scala: 
+https://stackoverflow.com/questions/40797310/play-framework-display-data-as-html-table?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+
+TheButton, a class which much of our code was adapted from (particularly validation):
+https://github.com/YogoGit/theButton/tree/master/app
