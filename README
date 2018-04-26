@@ -14,7 +14,7 @@ Unit Testing
 
 The base template for this project was built off of Nate William's Play tutorial found at https://github.com/YogoGit/play2torial/blob/master/JAVA.md.
 
-Some of the form creation and validation code taken from lwelna's TheButton found at https://github.com/YogoGit/theButton
+Some of the form creation and login and validation code taken from lwelna's TheButton found at https://github.com/YogoGit/theButton
 
 The HTML5 Space Game adapted from MutMatts's PEWPEW found at https://github.com/Mutmatt/Pew-Pew
 
