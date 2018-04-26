@@ -44,7 +44,7 @@ public class Application extends Controller {
 	    if (!isLoggedIn()) {
 	    	redirect(routes.Login.login());
 	    }
-        return ok(index.render("hello, world", Form.form(models.ScoreForm.class)));
+        return ok(index.render("hello, world", manage.createQuery("FROM HighScores ORDER BY Score DESC", HighScores.class).getResultList()));
     }
 
 	/**
@@ -72,7 +72,7 @@ public class Application extends Controller {
         	if(form.get().getScore()==null) {
 				logger.debug("No value was passed in form");
 			}
-            return badRequest(index.render("hello, world", form));
+            return badRequest(index.render("hello, world", manage.createQuery("FROM HighScores ORDER BY Score DESC", HighScores.class).getResultList()));
         }
         HighScores score = new HighScores();        
         score.setHighScore(form.get().getScore());        
@@ -87,7 +87,7 @@ public class Application extends Controller {
         for (HighScores h : scores) {
         	if (score.getHighScore() < h.getHighScore()) {
         		logger.info("Score was not high enough to be this user's new high score ");
-                return badRequest(index.render("hello, world", form));
+                return badRequest(index.render("hello, world", manage.createQuery("FROM HighScores ORDER BY Score DESC", HighScores.class).getResultList()));
     		}
     		highestScoreForUser = h;
         }

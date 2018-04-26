@@ -1,4 +1,4 @@
-@(message: String, highScoreForm: Form[ScoreForm])
+@(message: String, highScores: List[HighScores])
 @implicitFieldConstructor = @{ helper.FieldConstructor(twitterBootstrapInput.render) }
     
 @main("Welcome to Play") {
@@ -15,7 +15,19 @@
 
     <div class="container">
     	<h1>High Scores for a Space Game</h1>
-        <ul id="scores"></ul>
+    	<ul id="scores"></ul>
+    	<table>
+    		<tr>
+    			<td>User Name</td>
+    			<td>Highest Score</td>
+    		</tr>
+	    	@for(score <- highScores) {		    	
+	    		<tr>
+	    			<td>@score.getUsername()</td>
+	    			<td>@score.getHighScore()</td>
+	    		</tr>
+	    	} 
+    	</table>       
     </div>
     
 }
