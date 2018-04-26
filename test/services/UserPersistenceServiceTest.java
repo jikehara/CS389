@@ -89,6 +89,17 @@ public class UserPersistenceServiceTest extends AbstractTransactionalJUnit4Sprin
 		assertTrue(userService.userExists(user1.getUsername()));
 	}
 
+	// Adding a user doesn't add other users
+	@Test
+	public void addingSpecificUsers() {
+		UserForm user0 = new UserForm();
+		user0.setUsername("user0");
+		userService.addUser(user0);
+		assertTrue(userService.userExists(user0.getUsername()));
+
+		assertFalse(userService.userExists("user1"));
+	}
+		
 	@Test
 	public void getUserDataNotExist() {
 		assertNull(userService.getUserData("BobMarley"));

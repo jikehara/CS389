@@ -87,9 +87,7 @@
                 <form id="myForm" action="@routes.Application.addHighScore()" method="post">
                     <input type='hidden' id='score' name='score' />
                     <button class="btn btn-primary" type="submit">Submit Score</button>
-
                 </form>
-                <p id = scoreSub></p>
             <p id="scoreHere" ></p>
 
             </div>
@@ -203,8 +201,7 @@
             score = playerScore;
             document.getElementById("scoreHere").innerHTML=score;
             document.getElementById("score").value = score;
-        },50);
-        
+        },50);        
         </script>
     </body>
 </html>
