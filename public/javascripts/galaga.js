@@ -1,4 +1,4 @@
-/** Written by Matt Erickson (ME) **/
+/** Written by Matt Erickson, adapted by Connor Jones, taken from https://github.com/Mutmatt/Pew-Pew **/
 var DEBUG = false; //debug flag for helping figure out what is going on
 //One time inits
 var $GALAGA_CANVAS;
