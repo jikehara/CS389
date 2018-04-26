@@ -11,7 +11,7 @@ public class Global extends GlobalSettings {
 	
     private ApplicationContext context;
 
-    // sets up app configuration and data configuration
+    // sets up app configuration and data configuration at compile
     @Override
     public void onStart(Application app) {
         super.onStart(app);

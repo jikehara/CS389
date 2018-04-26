@@ -99,7 +99,7 @@ public class UserPersistenceServiceTest extends AbstractTransactionalJUnit4Sprin
 
 		assertFalse(userService.userExists("user1"));
 	}
-		
+
 	@Test
 	public void getUserDataNotExist() {
 		assertNull(userService.getUserData("BobMarley"));

@@ -17,30 +17,30 @@ import javax.inject.Named;
 
 @Named
 public class CreateAccount extends Controller {
-    private static final Logger log = LoggerFactory.getLogger(CreateAccount.class);
+	private static final Logger log = LoggerFactory.getLogger(CreateAccount.class);
 
-    @Inject
-    private UserService userService;
+	@Inject
+	private UserService userService;
 
-    public Result add() {
-        return ok(createAccount.render(Form.form(UserForm.class)));
-    }
+	public Result add() {
+		return ok(createAccount.render(Form.form(UserForm.class)));
+	}
 
-    public Result addUser() {
-        log.debug("trying to add a new user");
-        Form<UserForm> form = Form.form(UserForm.class).bindFromRequest();
-        if (form.hasErrors()) {
-            log.debug("form has errors, cannot add user");
-            return badRequest(createAccount.render(form));
-        }
-        UserForm user = form.get();
-        if (userService.userExists(user.getUsername())) {
-            log.info("username '{}' already exists, can't create account", user.getUsername());
-            form.reject("username", "That username already exists, please enter a different username");
-            return badRequest(createAccount.render(form));
-        }
-        log.info("adding {}", user.getUsername());
-        userService.addUser(user);
-        return redirect(controllers.routes.Login.login());
-    }
+	public Result addUser() {
+		log.debug("trying to add a new user");
+		Form<UserForm> form = Form.form(UserForm.class).bindFromRequest();
+		if (form.hasErrors()) {
+			log.debug("form has errors, cannot add user");
+			return badRequest(createAccount.render(form));
+		}
+		UserForm user = form.get();
+		if (userService.userExists(user.getUsername())) {
+			log.info("username '{}' already exists, can't create account", user.getUsername());
+			form.reject("username", "That username already exists, please enter a different username");
+			return badRequest(createAccount.render(form));
+		}
+		log.info("adding {}", user.getUsername());
+		userService.addUser(user);
+		return redirect(controllers.routes.Login.login());
+	}
 }
