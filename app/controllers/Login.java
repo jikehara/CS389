@@ -34,7 +34,11 @@ public class Login extends Controller {
 		if (form.hasErrors()) {
 			return badRequest(login.render(form));
 		}
-		String username = form.get().getUsername().toUpperCase();
+		String username = form.get().getUsername().toUpperCase().trim();
+		if (username.length() < 3) {
+			form.reject("username", "Username needs to be between 3 and 20 characters, without leading or trailing whitespace.");
+			return badRequest(login.render(form));
+		}
 		log.debug("checking if '{}' exists", username);
 		if (!(userService.userExists(username))) {
 			log.info("'{}' does not exist", username);

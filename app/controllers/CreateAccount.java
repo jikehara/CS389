@@ -34,6 +34,11 @@ public class CreateAccount extends Controller {
 			return badRequest(createAccount.render(form));
 		}
 		UserForm user = form.get();
+		user.setUsername(user.getUsername().trim());
+		if (user.getUsername().length() < 3) {
+			form.reject("username", "Username needs to be between 3 and 20 characters, without leading or trailing whitespace.");
+			return badRequest(createAccount.render(form));
+		}
 		if (userService.userExists(user.getUsername())) {
 			log.info("username '{}' already exists, can't create account", user.getUsername());
 			form.reject("username", "That username already exists, please enter a different username");
