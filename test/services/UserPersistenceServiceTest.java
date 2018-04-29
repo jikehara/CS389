@@ -160,7 +160,7 @@ public class UserPersistenceServiceTest extends AbstractTransactionalJUnit4Sprin
 		UserForm user1 = new UserForm();
 		user1.setUsername("user0");
 		assertFalse("Should be false because the user does not have a unique username",userService.addUser(user1));
-		assertFalse(userService.userExists(user1.getUsername()));
+		assertTrue("",userService.userExists(user1.getUsername()));
 	}
 	
 	// user get data tests

@@ -2,7 +2,8 @@ package controllers;
 
 import models.HighScores;
 import models.ScoreForm;
-
+import models.UserForm;
+import services.ScoreService;
 import services.ScoreServiceImplementation;
 import services.UserServiceImplementation;
 
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,8 +31,8 @@ public class Application extends Controller {
 
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
-	private UserServiceImplementation userService;
-	private ScoreServiceImplementation scoreService;
+	@Inject
+	private ScoreService scoreService;
 
 	@PersistenceContext
 	private EntityManager manage;
@@ -78,31 +80,16 @@ public class Application extends Controller {
 			return badRequest(index.render("hello, world",
 					manage.createQuery("FROM HighScores ORDER BY Score DESC", HighScores.class).getResultList()));
 		}
-		HighScores score = new HighScores();
-		score.setHighScore(form.get().getScore());
-		score.setUsername(session("username"));
-		logger.debug("Score is " + score.getHighScore() + " for user " + score.getUsername());
+		ScoreForm score = form.get();
+		UserForm user = new UserForm();
+		user.setUsername(session("username"));
+		logger.debug("New Score is " + score.getScore() + " for user " + user.getUsername());
 
-		// validate score based on user and score
-		List<HighScores> scores = manage
-				.createQuery("FROM HighScores h WHERE h.username = :name ORDER BY h.highScore DESC", HighScores.class)
-				.setParameter("name", score.getUsername()).getResultList();
-		HighScores highestScoreForUser = null;
-		for (HighScores h : scores) {
-			if (score.getHighScore() < h.getHighScore()) {
-				logger.info("Score was not high enough to be this user's new high score ");
-				return badRequest(index.render("hello, world",
-						manage.createQuery("FROM HighScores ORDER BY Score DESC", HighScores.class).getResultList()));
-			}
-			highestScoreForUser = h;
+		if (!(scoreService.addScore(user, score))) {
+			logger.debug("Could not persist new high score.");
+			return badRequest(index.render("hello, world",
+					manage.createQuery("FROM HighScores ORDER BY Score DESC", HighScores.class).getResultList()));
 		}
-		if (highestScoreForUser == null) {
-			highestScoreForUser = new HighScores();
-			highestScoreForUser.setUsername(score.getUsername());
-		}
-		highestScoreForUser.setHighScore(score.getHighScore());
-
-		manage.persist(highestScoreForUser);
 		// manage.remove(highestScoreForUser);
 		logger.debug("Added a High Score!");
 		return redirect(routes.Application.index());
