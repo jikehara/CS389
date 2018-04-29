@@ -34,9 +34,6 @@ public class Application extends Controller {
 	@Inject
 	private ScoreService scoreService;
 
-	@PersistenceContext
-	private EntityManager manage;
-
 	/**
 	 * Checks if session has a user, then renders the 'index' page
 	 * 
@@ -47,7 +44,7 @@ public class Application extends Controller {
 			redirect(routes.Login.login());
 		}
 		return ok(index.render("hello, world",
-				manage.createQuery("FROM HighScores ORDER BY Score DESC", HighScores.class).getResultList()));
+				scoreService.getAllUserHighScores()));
 	}
 
 	/**
@@ -78,7 +75,7 @@ public class Application extends Controller {
 				logger.debug("No value was passed in form");
 			}
 			return badRequest(index.render("hello, world",
-					manage.createQuery("FROM HighScores ORDER BY Score DESC", HighScores.class).getResultList()));
+					scoreService.getAllUserHighScores()));
 		}
 		ScoreForm score = form.get();
 		UserForm user = new UserForm();
@@ -88,7 +85,7 @@ public class Application extends Controller {
 		if (!(scoreService.addScore(user, score))) {
 			logger.debug("Could not persist new high score.");
 			return badRequest(index.render("hello, world",
-					manage.createQuery("FROM HighScores ORDER BY Score DESC", HighScores.class).getResultList()));
+					scoreService.getAllUserHighScores()));
 		}
 		// manage.remove(highestScoreForUser);
 		logger.debug("Added a High Score!");
@@ -101,8 +98,7 @@ public class Application extends Controller {
 	 * @return a 200 ok code and passes the JSON scores
 	 */
 	public Result getHighScores() {
-		List<HighScores> scores = manage.createQuery("FROM HighScores ORDER BY Score DESC", HighScores.class)
-				.getResultList();
+		List<HighScores> scores = scoreService.getAllUserHighScores();
 		return ok(play.libs.Json.toJson(scores));
 	}
 

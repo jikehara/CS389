@@ -70,8 +70,9 @@ public class ScoreServiceImplementation implements ScoreService {
 		return hs.get(0);
 	}
 
-	public List<HighScores> getAllUserHighScores(String username) {
+	@Override
+	public List<HighScores> getAllUserHighScores() {
 		return em
-				.createQuery("SELECT * FROM HighScores ", HighScores.class).getResultList();
+				.createQuery("FROM HighScores ORDER BY Score DESC", HighScores.class).getResultList();
 	}
 }

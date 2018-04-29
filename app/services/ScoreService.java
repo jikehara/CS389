@@ -39,8 +39,7 @@ public interface ScoreService {
 	/**
 	 * Gets a list of all the usernames and their associated high scores
 	 * 
-	 * @param username
-	 * @return HighScore (or null if no matching username)
+	 * @return List<HighScores>
 	 */
-	List<HighScores> getAllUserHighScores(String username);
+	List<HighScores> getAllUserHighScores();
 }
