@@ -31,3 +31,6 @@ https://www.w3schools.com/css/css_table.asp
 
 TheButton, a class which much of our code was adapted from (particularly validation):
 https://github.com/YogoGit/theButton/tree/master/app
+
+Dynamically assigning input values fetched from JS:
+https://www.w3schools.com/jsref/met_document_getelementbyid.asp
