@@ -1,0 +1,76 @@
+@(message: String, highScores: List[HighScores], error: String)
+@implicitFieldConstructor = @{ helper.FieldConstructor(twitterBootstrapInput.render) }
+
+@main("Welcome to Space Game") {
+
+    <link href="https://fonts.googleapis.com/css?family=Space+Mono" rel="stylesheet">
+
+    <script>
+            function alertScore() {
+                alert("Your Highscore is not a new highscore");
+            }
+    </script>
+
+    <style>
+            div {
+                font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+
+            }
+
+    </style>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a id="titleLink" class="brand" href="/">Log Out</a>
+                <a id="titleLink" class="brand" href="/game">Game</a>
+                <a id="titleLink" class="brand" href="/home">High Scores</a>
+            </div>
+        </div>
+    </div>
+
+    <style>
+            #highScoreTable {
+                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            #highScoreTable td, #customers th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            #highScoreTable tr:nth-child(even){background-color: #f2f2f2;}
+
+            #highScoreTable tr:hover {background-color: #ddd;}
+
+            #highScoreTable th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #4CAF50;
+                color: white;
+            }
+    </style>
+
+    <div class="container">
+        <h1></h1>
+        <h1>High Scores for a Space Game</h1>
+        <h3 style="color: #e9322d;">@error</h3>
+        <table id="highScoreTable">
+            <tr>
+                <td>User Name</td>
+                <td>Highest Score</td>
+            </tr>
+            @for(score <- highScores) {
+                <tr>
+                    <td>@score.getUsername()</td>
+                    <td>@score.getHighScore()</td>
+                </tr>
+            }
+        </table>
+    </div>
+
+
+
+}

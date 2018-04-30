@@ -126,7 +126,8 @@ public class UserPersistenceServiceTest extends AbstractTransactionalJUnit4Sprin
 	public void userDoesNotExist() {
 		assertFalse(userService.userExists("user"));
 	}
-	
+
+	//Confirm a newly added user esxists
 	@Test
 	public void newUserDoesExist() {
 		UserForm user = new UserForm();
@@ -134,7 +135,8 @@ public class UserPersistenceServiceTest extends AbstractTransactionalJUnit4Sprin
 		userService.addUser(user);
 		assertTrue(userService.userExists(user.getUsername()));
 	}
-	
+
+	//confirm that two unique users exist independently
 	@Test
 	public void twoNewUsersExist() {
 		UserForm user0 = new UserForm();
@@ -149,7 +151,8 @@ public class UserPersistenceServiceTest extends AbstractTransactionalJUnit4Sprin
 		assertTrue(userService.userExists(user0.getUsername()));
 		assertTrue(userService.userExists(user1.getUsername()));
 	}
-	
+
+	//Confirm the requirement that a user must have a unique username
 	@Test
 	public void oneNewUserExistsButOtherUsersDoNotExist() {
 		UserForm user0 = new UserForm();

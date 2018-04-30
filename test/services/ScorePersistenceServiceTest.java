@@ -68,4 +68,19 @@ public class ScorePersistenceServiceTest extends AbstractTransactionalJUnit4Spri
 		s.setScore((long) -1);
 		assertFalse(scoreService.addScore(u, s));
 	}
+
+	//Confirm that a new high score from a unique user works
+	@Test
+	public void addUniqueHigherScore() {
+		ScoreForm s1 = new ScoreForm();
+		UserForm u1 = new UserForm();
+		ScoreForm s2 = new ScoreForm();
+		UserForm u2 = new UserForm();
+		u1.setUsername("user0");
+		s1.setScore((long) 15); // score of 15
+		u2.setUsername("userUnique");
+		s2.setScore((long) 100); // score of 100
+		assertTrue(scoreService.addScore(u1, s1));
+		assertTrue(scoreService.addScore(u2, s2));
+	}
 }

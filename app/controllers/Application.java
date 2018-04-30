@@ -25,6 +25,7 @@ import javax.transaction.Transactional;
 
 import views.html.index;
 import views.html.game;
+import views.html.scoreError;
 
 @Named
 public class Application extends Controller {
@@ -84,12 +85,14 @@ public class Application extends Controller {
 
 		if (!(scoreService.addScore(user, score))) {
 			logger.debug("Could not persist new high score.");
-			return badRequest(index.render("hello, world",
-					scoreService.getAllUserHighScores()));
+
+			return badRequest(scoreError.render("score is not a Highscore",
+					scoreService.getAllUserHighScores(), "Your score was not a HighScore, play again"));
 		}
 		// manage.remove(highestScoreForUser);
 		logger.debug("Added a High Score!");
-		return redirect(routes.Application.index());
+		return ok(views.html.scoreYes.render("score is a Highscore",
+				scoreService.getAllUserHighScores(), "Congrats, you set a new highscore, try to beat it!"));
 	}
 
 	/**
