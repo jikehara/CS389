@@ -42,7 +42,8 @@ public class Application extends Controller {
 	 */
 	public Result index() {
 		if (!isLoggedIn()) {
-			redirect(routes.Login.login());
+			logger.debug("Redirecting to login");
+			return redirect(routes.Login.login());
 		}
 		return ok(index.render("hello, world", scoreService.getAllUserHighScores()));
 	}
@@ -54,7 +55,8 @@ public class Application extends Controller {
 	 */
 	public Result game() {
 		if (!isLoggedIn()) {
-			redirect(routes.Login.login());
+			logger.debug("Redirecting to login");
+			return redirect(routes.Login.login());
 		}
 		return ok(game.render());
 	}
@@ -105,9 +107,10 @@ public class Application extends Controller {
 
 	private boolean isLoggedIn() {
 		if (session("username") == null) {
-			logger.debug("bad username, page unavailable");
+			logger.debug("User is not logged in");
 			return false;
 		}
+		logger.debug("User is logged in as " + session("username"));
 		return true;
 	}
 }
