@@ -7,7 +7,7 @@ import models.ScoreForm;
 import models.UserForm;
 
 public interface ScoreService {
-	
+
 	/**
 	 * Check if a score can be added if it is a new user or a duplicate user with a
 	 * new high score, will persist a new score that fits criteria
@@ -18,7 +18,7 @@ public interface ScoreService {
 	 *         otherwise
 	 */
 	boolean addScore(UserForm user, ScoreForm score);
-	
+
 	/**
 	 * Checks if the user with this username exists
 	 * 
@@ -35,7 +35,7 @@ public interface ScoreService {
 	 * @return HighScore (or null if no matching username)
 	 */
 	HighScores getSingleUserHighScore(String username);
-	
+
 	/**
 	 * Gets a list of all the usernames and their associated high scores
 	 * 

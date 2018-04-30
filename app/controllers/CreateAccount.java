@@ -36,7 +36,8 @@ public class CreateAccount extends Controller {
 		UserForm user = form.get();
 		user.setUsername(user.getUsername().trim());
 		if (user.getUsername().length() < 3) {
-			form.reject("username", "Username needs to be between 3 and 20 characters, without leading or trailing whitespace.");
+			form.reject("username",
+					"Username needs to be between 3 and 20 characters, without leading or trailing whitespace.");
 			return badRequest(createAccount.render(form));
 		}
 		if (userService.userExists(user.getUsername())) {

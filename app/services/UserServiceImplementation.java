@@ -28,7 +28,7 @@ public class UserServiceImplementation implements UserService {
 		}
 		UserInfo newUser = new UserInfo();
 		newUser.setUsername(user.getUsername().trim());
-		if (newUser.getUsername() .length() > 20 || newUser.getUsername() .length() < 3) {
+		if (newUser.getUsername().length() > 20 || newUser.getUsername().length() < 3) {
 			return false;
 		}
 		em.persist(newUser);

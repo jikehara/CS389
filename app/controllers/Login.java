@@ -36,7 +36,8 @@ public class Login extends Controller {
 		}
 		String username = form.get().getUsername().toUpperCase().trim();
 		if (username.length() < 3) {
-			form.reject("username", "Username needs to be between 3 and 20 characters, without leading or trailing whitespace.");
+			form.reject("username",
+					"Username needs to be between 3 and 20 characters, without leading or trailing whitespace.");
 			return badRequest(login.render(form));
 		}
 		log.debug("checking if '{}' exists", username);

@@ -32,27 +32,24 @@ public class ScoreServiceImplementation implements ScoreService {
 	@Override
 	@Transactional
 	public boolean addScore(UserForm user, ScoreForm score) {
-		if (user == null || 
-				user.getUsername() == null ||
-				score == null
-				) {
+		if (user == null || user.getUsername() == null || score == null) {
 			log.debug("Invalid user or score.");
 			return false;
 		}
 		HighScores hs = getSingleUserHighScore(user.getUsername());
-		
-		//null user -> new user
+
+		// null user -> new user
 		if (hs == null) {
 			hs = new HighScores();
 			hs.setUsername(user.getUsername());
 			hs.setHighScore((long) 0);
 		}
-		log.debug("Score being added for user: "+hs.getUsername());
-		log.debug("New Score: "+score.getScore());
+		log.debug("Score being added for user: " + hs.getUsername());
+		log.debug("New Score: " + score.getScore());
 		if (score.getScore() <= hs.getHighScore()) {
 			log.debug("Valid user, but score was not high enough to be a new high score.");
 			return false;
-		}		
+		}
 		hs.setHighScore(score.getScore());
 		em.persist(hs);
 		return true;
@@ -72,7 +69,6 @@ public class ScoreServiceImplementation implements ScoreService {
 
 	@Override
 	public List<HighScores> getAllUserHighScores() {
-		return em
-				.createQuery("FROM HighScores ORDER BY Score DESC", HighScores.class).getResultList();
+		return em.createQuery("FROM HighScores ORDER BY Score DESC", HighScores.class).getResultList();
 	}
 }

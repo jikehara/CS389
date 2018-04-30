@@ -19,7 +19,8 @@ public class ScoreForm {
 	/**
 	 * Sets the score
 	 * 
-	 * @param Long score
+	 * @param Long
+	 *            score
 	 */
 	public void setScore(Long score) {
 		this.score = score;

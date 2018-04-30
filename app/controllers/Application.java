@@ -44,8 +44,7 @@ public class Application extends Controller {
 		if (!isLoggedIn()) {
 			redirect(routes.Login.login());
 		}
-		return ok(index.render("hello, world",
-				scoreService.getAllUserHighScores()));
+		return ok(index.render("hello, world", scoreService.getAllUserHighScores()));
 	}
 
 	/**
@@ -75,8 +74,7 @@ public class Application extends Controller {
 			if (form.get().getScore() == null) {
 				logger.debug("No value was passed in form");
 			}
-			return badRequest(index.render("hello, world",
-					scoreService.getAllUserHighScores()));
+			return badRequest(index.render("hello, world", scoreService.getAllUserHighScores()));
 		}
 		ScoreForm score = form.get();
 		UserForm user = new UserForm();
@@ -86,13 +84,13 @@ public class Application extends Controller {
 		if (!(scoreService.addScore(user, score))) {
 			logger.debug("Could not persist new high score.");
 
-			return badRequest(scoreError.render("score is not a Highscore",
-					scoreService.getAllUserHighScores(), "Your score was not a HighScore, play again"));
+			return badRequest(scoreError.render("score is not a Highscore", scoreService.getAllUserHighScores(),
+					"Your score was not a HighScore, play again"));
 		}
 		// manage.remove(highestScoreForUser);
 		logger.debug("Added a High Score!");
-		return ok(views.html.scoreYes.render("score is a Highscore",
-				scoreService.getAllUserHighScores(), "Congrats, you set a new highscore, try to beat it!"));
+		return ok(views.html.scoreYes.render("score is a Highscore", scoreService.getAllUserHighScores(),
+				"Congrats, you set a new highscore, try to beat it!"));
 	}
 
 	/**
