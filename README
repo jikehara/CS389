@@ -12,16 +12,19 @@ Unit Testing
 
 =================================
 
-The base template for this project was built off of Nate William's Play tutorial found at https://github.com/YogoGit/play2torial/blob/master/JAVA.md.
-
-Some of the form creation and login and validation code taken from lwelna's TheButton found at https://github.com/YogoGit/theButton
-
-The HTML5 Space Game adapted from MutMatts's PEWPEW found at https://github.com/Mutmatt/Pew-Pew
 
 To run the app, you must have the application.conf file configured correctly for the database you will have to create, and you also must have the sbt build tool installed.
+
+You also need a MySQL database with a name matching the database in application.conf. The database name we currently have is called "first_database". 
+You must have two tables in first_database. These tables are: 
+"high_score" with the columns "Score" int, "User" varchar, and "id" auto incremented primary key.
+"user" with the columns "id" auto incremented primary key, and "username" varchar.
+
 To run unit tests use the Scala Build Tool 'sbt test' command
 
-We used a lot of code that came from other people. Here is some of it:
+We used a lot of code that came from other people. We would like to thank them for all their hard work, which allowed us to make this project.
+
+Nate Williams, for his encouragement and his teachings during class.
 
 Help with HTML tables in scala: 
 https://stackoverflow.com/questions/40797310/play-framework-display-data-as-html-table?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
@@ -29,8 +32,14 @@ https://stackoverflow.com/questions/40797310/play-framework-display-data-as-html
 CSS help with tables:
 https://www.w3schools.com/css/css_table.asp
 
-TheButton, a class which much of our code was adapted from (particularly validation):
-https://github.com/YogoGit/theButton/tree/master/app
-
 Dynamically assigning input values fetched from JS:
 https://www.w3schools.com/jsref/met_document_getelementbyid.asp
+
+The base template for this project was built off of Nate William's Play tutorial:
+https://github.com/YogoGit/play2torial/blob/master/JAVA.md.
+
+TheButton, a class which much of our code was adapted from (particularly validation):
+https://github.com/YogoGit/theButton
+
+The HTML5 Space Game adapted from MutMatts's PEWPEW:
+https://github.com/Mutmatt/Pew-Pew
