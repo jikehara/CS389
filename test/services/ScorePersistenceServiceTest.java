@@ -83,4 +83,19 @@ public class ScorePersistenceServiceTest extends AbstractTransactionalJUnit4Spri
 		assertTrue(scoreService.addScore(u1, s1));
 		assertTrue(scoreService.addScore(u2, s2));
 	}
+	
+	//Confirm that a second user can have a score lower than another user's score
+	@Test
+	public void addUniqueUserLowerScore() {
+		ScoreForm s1 = new ScoreForm();
+		UserForm u1 = new UserForm();
+		ScoreForm s2 = new ScoreForm();
+		UserForm u2 = new UserForm();
+		u1.setUsername("user0");
+		s1.setScore((long) 150); // user 0 score of 150
+		u2.setUsername("user1");
+		s2.setScore((long) 100); // user 1 score of 100
+		assertTrue(scoreService.addScore(u1, s1));
+		assertTrue(scoreService.addScore(u2, s2));
+	}
 }
