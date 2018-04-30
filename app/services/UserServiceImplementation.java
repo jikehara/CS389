@@ -23,13 +23,16 @@ public class UserServiceImplementation implements UserService {
 	@Override
 	@Transactional
 	public boolean addUser(UserForm user) {
-		if (user != null && !userExists(user.getUsername()) && user.getUsername() != null) {
-			UserInfo newUser = new UserInfo();
-			newUser.setUsername(user.getUsername());
-			em.persist(newUser);
-			return true;
+		if (user == null || userExists(user.getUsername()) || user.getUsername() == null) {
+			return false;
 		}
-		return false;
+		UserInfo newUser = new UserInfo();
+		newUser.setUsername(user.getUsername().trim());
+		if (newUser.getUsername() .length() > 20 || newUser.getUsername() .length() < 3) {
+			return false;
+		}
+		em.persist(newUser);
+		return true;
 	}
 
 	@Override
@@ -42,10 +45,10 @@ public class UserServiceImplementation implements UserService {
 	public UserInfo getUserData(String username) {
 		List<UserInfo> ui = em.createQuery("SELECT a FROM UserInfo a WHERE a.username = :username", UserInfo.class)
 				.setParameter("username", username).getResultList();
-		if (ui.size() > 0) {
-			return ui.get(0);
+		if (!(ui.size() > 0)) {
+			log.info("Trying to getUserInfo for a {} that doesn't exist ", username);
+			return null;
 		}
-		log.info("Trying to getUserInfo for a {} that doesn't exist ", username);
-		return null;
+		return ui.get(0);
 	}
 }

@@ -20,35 +20,34 @@ public class UserPersistenceServiceTest extends AbstractTransactionalJUnit4Sprin
 	@Inject
 	private UserService userService;
 
+	// user add tests
+	
 	// test being able to add a user
 	@Test
 	public void saveUserTest() {
 		UserForm u = new UserForm();
-		u.setUsername("test");
-		userService.addUser(u);
-		assertTrue(userService.userExists(u.getUsername()));
+		u.setUsername("test");		
+		assertTrue(userService.addUser(u));
 	}
 
 	// the database does not allow data that is longer than 20 characters to be
 	// added
-	@Test(expected = javax.persistence.PersistenceException.class)
+	@Test
 	public void addUsernameLong() {
 		UserForm user = new UserForm();
 		user.setUsername("user1WhichIsLongerThan20Characters");
 		assertTrue(user.getUsername().length() > 20);
-		userService.addUser(user);
-		assertFalse(userService.userExists(user.getUsername()));
+		assertFalse("Should be false because the user should be too long to be added", userService.addUser(user));
 	}
 
 	// the database does not allow data that is shorter than 3 characters to be
 	// added
-	@Test(expected = java.lang.AssertionError.class)
+	@Test
 	public void addUsernameShort() {
 		UserForm user = new UserForm();
 		user.setUsername("u2");
 		assertTrue(user.getUsername().length() < 3);
-		userService.addUser(user);
-		assertFalse(userService.userExists(user.getUsername()));
+		assertFalse("Should be false because the user should be too short to be added", userService.addUser(user));
 	}
 
 	// cannot add a null user
@@ -57,36 +56,17 @@ public class UserPersistenceServiceTest extends AbstractTransactionalJUnit4Sprin
 		assertFalse(userService.addUser(null));
 	}
 
-	// cannot add a user with no username
-	@Test
-	public void notInitializedUser() {
-		UserForm user = new UserForm();
-		assertFalse(userService.addUser(user));
-	}
-
-	// the null user should not exist
-	@Test
-	public void nullUserExists() {
-		assertFalse(userService.userExists(null));
-	}
-
-	@Test
-	public void userDoesNotExist() {
-		assertFalse(userService.userExists("user"));
-	}
-
 	// can add more than one user
 	@Test
 	public void addingMultipleUsers() {
 		UserForm user0 = new UserForm();
 		user0.setUsername("user0");
-		userService.addUser(user0);
-		assertTrue(userService.userExists(user0.getUsername()));
 
 		UserForm user1 = new UserForm();
 		user1.setUsername("user1");
-		userService.addUser(user1);
-		assertTrue(userService.userExists(user1.getUsername()));
+		
+		assertTrue(userService.addUser(user0));
+		assertTrue(userService.addUser(user1));
 	}
 
 	// Adding a user doesn't add other users
@@ -94,11 +74,96 @@ public class UserPersistenceServiceTest extends AbstractTransactionalJUnit4Sprin
 	public void addingSpecificUsers() {
 		UserForm user0 = new UserForm();
 		user0.setUsername("user0");
-		userService.addUser(user0);
-		assertTrue(userService.userExists(user0.getUsername()));
+		assertTrue(userService.addUser(user0));
 
 		assertFalse(userService.userExists("user1"));
 	}
+		
+	// cannot add duplicate users
+	@Test
+	public void addingDuplicateUsers() {
+		UserForm user0 = new UserForm();
+		user0.setUsername("user0");
+		assertTrue(userService.addUser(user0));
+
+		UserForm user1 = new UserForm();
+		user1.setUsername("user0");
+		assertFalse("Should be false because the user does not have a unique username",userService.addUser(user1));
+	}
+	
+	// cannot add the same user twice
+	@Test
+	public void addingUserTwice() {
+		UserForm user0 = new UserForm();
+		user0.setUsername("user0");
+		userService.addUser(user0);
+		assertTrue(userService.userExists(user0.getUsername()));
+		assertFalse(userService.addUser(user0));
+		
+	}
+		
+	// cannot add a user with no username
+	@Test
+	public void notInitializedUser() {
+		UserForm user = new UserForm();
+		assertFalse(userService.addUser(user));
+	}
+	
+	// User exists tests
+
+	// the null user should not exist
+	@Test
+	public void nullUserDoesNotExist() {
+		assertFalse(userService.userExists(null));
+	}
+	
+	@Test
+	public void blankUserDoesNotExist() {
+		assertFalse(userService.userExists(""));
+	}
+
+	@Test
+	public void userDoesNotExist() {
+		assertFalse(userService.userExists("user"));
+	}
+	
+	@Test
+	public void newUserDoesExist() {
+		UserForm user = new UserForm();
+		user.setUsername("user0");
+		userService.addUser(user);
+		assertTrue(userService.userExists(user.getUsername()));
+	}
+	
+	@Test
+	public void twoNewUsersExist() {
+		UserForm user0 = new UserForm();
+		user0.setUsername("user0");
+
+		UserForm user1 = new UserForm();
+		user1.setUsername("user1");
+		
+		assertTrue(userService.addUser(user0));
+		assertTrue(userService.addUser(user1));
+		
+		assertTrue(userService.userExists(user0.getUsername()));
+		assertTrue(userService.userExists(user1.getUsername()));
+	}
+	
+	@Test
+	public void oneNewUserExistsButOtherUsersDoNotExist() {
+		UserForm user0 = new UserForm();
+		user0.setUsername("user0");
+		assertTrue(userService.addUser(user0));
+		assertTrue(userService.userExists(user0.getUsername()));
+
+		UserForm user1 = new UserForm();
+		user1.setUsername("user0");
+		assertFalse("Should be false because the user does not have a unique username",userService.addUser(user1));
+		assertTrue("",userService.userExists(user1.getUsername()));
+	}
+	
+	// user get data tests
 
 	@Test
 	public void getUserDataNotExist() {
@@ -106,7 +171,7 @@ public class UserPersistenceServiceTest extends AbstractTransactionalJUnit4Sprin
 	}
 
 	@Test
-	public void nullUserDatat() {
+	public void nullUserData() {
 		assertNull(userService.getUserData(null));
 	}
 
@@ -116,5 +181,29 @@ public class UserPersistenceServiceTest extends AbstractTransactionalJUnit4Sprin
 		user.setUsername("user0");
 		userService.addUser(user);
 		assertNotNull(userService.getUserData(user.getUsername()));
+	}
+	
+	@Test
+	public void getCorrectUserData() {
+		UserForm user = new UserForm();
+		user.setUsername("user0");
+		userService.addUser(user);
+		assertTrue(userService.getUserData(user.getUsername()).getUsername().equals(user.getUsername()));
+	}
+	
+	@Test
+	public void getUserDataHasValidID() {
+		UserForm user = new UserForm();
+		user.setUsername("user0");
+		userService.addUser(user);
+		assertNotNull(userService.getUserData(user.getUsername()).getId());
+	}
+	
+	@Test
+	public void getUserDataHasValidUsername() {
+		UserForm user = new UserForm();
+		user.setUsername("user0");
+		userService.addUser(user);
+		assertNotNull(userService.getUserData(user.getUsername()).getUsername());
 	}
 }

@@ -42,8 +42,7 @@ public class UserInfo {
 	/**
 	 * Sets username to the param username
 	 * 
-	 * @param String
-	 *            username
+	 * @param String username
 	 */
 	public void setUsername(String username) {
 		this.username = username.toUpperCase();
